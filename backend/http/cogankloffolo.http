@@ -1,0 +1,17 @@
+POST http://127.0.0.1:3000/api/ujdiak
+content-Type: application/json
+
+{
+    "id": 99999999,
+    "diaknev": "kis and",
+    "evfolyam": 11,
+    "osztaly": "C"
+}
+###
+GET http://127.0.0.1:3000/api/nevsor
+###
+GET http://127.0.0.1:3000/api/letszamok
+###
+GET http://127.0.0.1:3000/api/angol
+###
+GET http://127.0.0.1:3000/api/felelos

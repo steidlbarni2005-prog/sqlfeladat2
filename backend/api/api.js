@@ -40,5 +40,91 @@ router.get('/testsql', async (request, response) => {
         });
     }
 });
+router.post('/ujdiak', async (request, response) => {
+    try {
+        const { id, diaknev, evfolyam, osztaly } = request.body;
+        console.log(request.body);
 
+
+        // Egyszerű validáció
+        if (!id || !diaknev || !evfolyam || !osztaly) {
+            return response.status(400).json({
+                message: 'Hiányzó adatok.'
+            });
+        }
+
+        await database.ujdiak(id, diaknev, evfolyam, osztaly);
+
+        response.status(201).json({
+            message: 'Sikeres adatbevitel.'
+        });
+
+    } catch (error) {
+        console.error(error);
+
+        response.status(500).json({
+            message: 'Sikertelen adatbevitel.'
+        });
+    }
+});
+router.get('/nevsor', async (request, response) => {
+    try {
+        const results = await database.select12DbyOrder();
+        response.status(200).json({
+            message: 'Sikeres lekérdezés.',
+            results: results
+        });
+    } catch (error) {
+        console.error(error);
+        response.status(500).json({
+            message: 'Sikertelen lekérdezés.'
+        });
+    }
+});
+router.get('/letszamok', async (request, response) => {
+    try {
+        const results = await database.select12Letszamok();
+        response.status(200).json({
+            message: 'Sikeres lekérdezés.',
+            results: results
+        });
+    } catch (error) {
+        console.error(error);
+        response.status(500).json({
+            message: 'Sikertelen lekérdezés.'
+        });
+    }
+});
+router.get('/angol', async (request, response) => {
+    try {
+        const results = await database.selectAngoltanar();
+        console.log(results);
+        response.status(200).json({
+            message: 'Sikeres lekérdezés.',
+            results: results
+        });
+    } catch (error) {
+        console.error(error);
+        response.status(500).json({
+            message: 'Sikertelen lekérdezés.'
+        });
+    }
+});
+router.get('/felelos', async (request, response) => {
+    try {
+        console.log('Felelősök lekérdezése...');
+        const results = await database.selectFelelos();
+        console.log(results);
+        response.status(200).json({
+            message: 'Sikeres lekérdezés.',
+            results: results
+        });
+    } catch (error) {
+        console.error(error);
+        response.status(500).json({
+            message: 'Sikertelen lekérdezés.'
+        });
+    }
+    
+});
 module.exports = router;
